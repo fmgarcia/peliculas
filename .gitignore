@@ -179,3 +179,14 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Data local (no subir datos al repo)
+backend/data/
+
+# OS
+.DS_Store
+Thumbs.db

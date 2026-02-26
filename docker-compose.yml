@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: peliculas-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - peliculas-data:/app/data
+    environment:
+      - DATA_DIR=/app/data
+    restart: unless-stopped
+    networks:
+      - peliculas-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+    container_name: peliculas-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - peliculas-net
+
+volumes:
+  peliculas-data:
+    driver: local
+
+networks:
+  peliculas-net:
+    driver: bridge
